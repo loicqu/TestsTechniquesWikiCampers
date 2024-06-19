@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {% if isModification %}
+    Modification {{ leVehicule.modele }}
+  {% else %}
+    Ajout d'un véhicule
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+<div style="margin-top: 50px;">
+  <div class="d-flex justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          {% if isModification %}
+            Modification {{ leVehicule.modele }}
+          {% else %}
+            Ajout d'un véhicule
+          {% endif %}
+        </div>
+        <div class="card-body">
+                {% if isModification %}
+          <div class="align-self-center mx-3">
+            <img class="rounded" style="height: 300px" src="{{ asset('images/vehicule/' ~ leVehicule.image ~ '') }}" />
+          </div>
+        {% endif %}
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+            <div class="d-flex un-sur-autre justify-content-center">
+              <button class="btn btn-primary" type="submit">ENREGISTRER</button>
+              <a class="btn-retour-un-sur-autre" href="{{ path('afficherLesVehicules') }}">Retour</a>
+            </div>
+          {{ form_end(form) }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

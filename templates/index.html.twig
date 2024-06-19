@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+	<style>
+		body {
+			background-image: url("https://media.inmobalia.com/imgV1/B98Le8~d7M9k3DegigWkzHXQlgzMFGqGJJp6ZRUcpX033lqadFBp2i4GGW4X2J1jIJ9Pwc6GsJX5cPScJf~MQeTIWIvX1s_P0QuOdXad5Jpt0YFJ~Dqx8xEepk0k_hkiGic5lTybUHjlf1FhydqGnTGEBMwQJ0sU_jrXdUhAjuWm8YeOfPxrLANEzm2~hmlQmerMLpc1Q5YmGC4ypB0dINX86r85R3fRtbnQmJWbfkhx_FPiino_lxrCew_YcHQ~o0fdS6YGR_kQusaadf7h7zlESof744NH__vJ3mh6FeNuwGeoSNYyd8SWJg--.jpg");
+			background-size: cover;
+			height: 100%;
+		}
+
+		.message-bienvenue {
+			background-color: transparent;
+			backdrop-filter: blur(100px);
+			width: 650px;
+			margin: 10rem auto auto;
+			padding: 2%;
+			border-radius: 15px;
+		}
+
+		.message-bienvenue div {
+			color: white;
+			text-align: center;
+			font-size: 18px;
+			font-weight: light;
+		}
+
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="message-bienvenue">
+		<div>
+			<h3>Bienvenue sur immobill, le site de référence pour vos recherches immobilières !</h3>
+			<p>Découvrez notre large choix de biens immobiliers à vendre, dans des quartiers de choix et des villes dynamiques. Nos experts vous accompagnent dans tous vos projets immobiliers et vous conseillent les biens qui correspondent à vos critères et à votre budget.</p>
+			<p>Profitez dès maintenant de notre expérience et de notre savoir-faire en matière de transactions immobilières, pour un achat ou une location en toute tranquillité d'esprit. Nous sommes à votre écoute pour répondre à toutes vos questions et demandes de renseignements.</p>
+			<p>N'hésitez plus, et recherchez dès maintenant votre futur bien immobilier sur immobill !</p>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-light navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="#"
+      ><img
+        id="MDB-logo"
+        src="{{ asset('images/logo.png') }}"
+        alt="loic-logo"
+        draggable="false"
+        height="80"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto align-items-center">
+      {% if app.user %}
+	  	<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a class="dropdown-item" href="{{ path('disponibilite_ajout') }}">Ajouter une disponibilité</a>
+				</li>
+        <li class="nav-item">
+          <a class="dropdown-item" href="{{ path('afficherLesVehicules') }}">Véhicules</a>
+        </li>
+				<li>
+					<a class="dropdown-item" href="{{ path('afficherLesDisponibilites') }}">Disponibilités</a>
+				</li>
+			</ul>
+		  </li>
+      {% endif %}
+      <li class="nav-item">
+          <a class="nav-link mx-2" href="{{ path('afficherLesVehicules') }}">Les véhicules disponibles</a>
+      </li>
+      <li>
+				<a class="nav-link mx-2" href="{{ path('afficherLesDisponibilites') }}">Disponibilités</a>
+			</li>
+      <div class="btn-group dropright">
+						<li class="nav-item dropdown">
+							<a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								{% if app.user %}
+									<i class="fa fa-user" id="btn-connextion-user" aria-hidden="true"></i>
+								{% else %}
+									<a class="btn btn-primary btn-connexion" id="btn-connextion-form" href="{{ path('app_login') }}">Connexion</a>
+								{% endif %}
+							</a>
+							<ul class="dropdown-menu">
+								<li class="nav-item profile-nav">
+									{% if app.user %}
+										<p class="email-user">{{ app.user.userIdentifier }}</p>
+										<a style="color: white!important;" class="btn btn-primary" href="#" onclick="return confirm('Voulez-vous vraiment vous déconnecter ?') && (document.location.href = '{{ path('app_logout') }}');">Déconnexion</a>
+									{% else %}
+										<a class="btn btn-primary btn-connexion" href="{{ path('app_login') }}">Connexion</a>
+									{% endif %}
+								</li>
+							</ul>
+						</li>
+					</div>
+        
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar -->

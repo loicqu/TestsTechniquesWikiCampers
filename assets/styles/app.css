@@ -1,0 +1,19 @@
+body {
+    background-color: white;
+}
+
+.types-de-bien-cadre {
+    border: solid 1px black;
+    border-radius: 15px;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.un-sur-autre {
+    display: flex;
+    flex-wrap: wrap;
+    width: 120px;
+    margin: auto;
+}
