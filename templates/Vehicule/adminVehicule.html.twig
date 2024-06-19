@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les véhicules{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}        
+{% for message in app.flashes('failed') %}
+    <div class="alert alert-danger">
+        {{message}}
+    </div>
+{% endfor %}
+
+
+
+  <div class="types-de-bien-cadre">
+    <h1 class="my-4">Véhicules sur le marché</h1>
+    <form action="">
+    <button  style="margin-bottom: 20px; border: solid 1px #0d6efd; background-color: #0d6efd; " class="btn btn-success" formaction="{{path("vehicule_ajout")}}">AJOUTER</button>
+</form>
+  </div>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Marque</th>
+            <th>Modèle</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for unVehicule in lesVehicules %}    
+        <tr>
+            <td><img class="rounded" style="width: 250px" src="{{asset('images/vehicule/'~ unVehicule.image)}}"></td>
+            <td>{{ unVehicule.marque }}</td>
+            <td>{{ unVehicule.modele }}</td>
+            <td>
+                <div class="d-flex">
+                    <form action="{{path('vehicule_modification', {'id': unVehicule.id})}}" style="margin-right: 2px">
+                        <input type="submit" class="btn btn-outline-primary" value="MODIFIER">
+                    </form>
+                    <form method="POST" action="{{path("vehicule_suppression", {'id': unVehicule.id})}}" onsubmit="return confirm('Confirmer la suppression?')">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="{{csrf_token('sup'~ unVehicule.id)}}">
+                        <input type="submit" class="btn btn-outline-danger" value="SUPPRIMER">
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>        
+</table>
+{% endblock %}

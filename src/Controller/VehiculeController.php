@@ -21,25 +21,22 @@ class VehiculeController extends AbstractController
     );
     }
 
+    #[Route('/les-vehicules-admin', name: 'afficherLesVehiculesAdmin')]
+    public function lesVehiculesAdmin(VehiculeRepository $vehiculeRepository, Request $request): Response
+    {
+        $lesVehicules = $vehiculeRepository->findAll(); # on récupère tous les véhicules présents dans la base de données
+        return $this->render('Vehicule/adminVehicule.html.twig',[
+            'lesVehicules'=>$lesVehicules,
+        ]
+    );
+    }
+
     #[Route('/les-vehicules', name: 'afficherLesVehicules')]
     public function lesVehicules(VehiculeRepository $vehiculeRepository, Request $request): Response
     {
-        #$search = new BienSearch();
-        #$form = $this->createForm(BienSearchType::class, $search);
-        #$form->handleRequest($request);
-        #$valForm = $form->getData();
-        /* if($valForm->getPrixMax() || $valForm->getSurface() || $valForm->getVille()){
-            if($form->isSubmitted() && $form->isValid()){
-                $bien = $bienRepository->searchBien($search);
-            }
-        }
-        else{
-            $bien = $bienRepository->findAll();
-        } */
-        $lesVehicules = $vehiculeRepository->findAll();
+        $lesVehicules = $vehiculeRepository->findAll(); # on récupère tous les véhicules présents dans la base de données
         return $this->render('Vehicule/index.html.twig',[
             'lesVehicules'=>$lesVehicules,
-            #'form' =>$form->createView(),
         ]
     );
     }
@@ -48,15 +45,15 @@ class VehiculeController extends AbstractController
     #[Route('/modifier-un-vehicule/{id}', name: 'vehicule_modification')]
     public function AjoutEtModif(Vehicule $vehicule=null, Request $request, EntityManagerInterface $manager): Response
     {
-        if(!$vehicule){
+        if(!$vehicule){ # si l'objet de la classe Vehicule est null alors ça veut dire que l'action est l'ajout donc on en créé un vide
             $vehicule = new Vehicule();
         }
-        $form = $this->createForm(VehiculeType::class, $vehicule);
+        $form = $this->createForm(VehiculeType::class, $vehicule); # initialisation du formulaire
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($vehicule);
-            $manager->flush();
-            return $this->redirectToRoute("afficherLesVehicules");
+        if($form->isSubmitted() && $form->isValid()){ # on vérifie la validité du formulaire et on vérifie également qu'il a été soumis
+            $manager->persist($vehicule); # on enregistre 
+            $manager->flush(); # et on envoie les valeurs dans la base (soit un INSERT soit un UPDATE)
+            return $this->redirectToRoute("afficherLesVehiculesAdmin"); # on redirige l'utilisateur vers une autre page
         }
         return $this->render('vehicule/page-modif-ajout.html.twig', [
             'leVehicule' => $vehicule,
@@ -67,15 +64,15 @@ class VehiculeController extends AbstractController
     #[Route('/supprimer/{id}', name: 'vehicule_suppression', methods:"delete")]
     public function suppression(Vehicule $vehicule=null, Request $request, EntityManagerInterface $manager): Response
     {
-        if($this->isCsrfTokenValid("sup".$vehicule->getId(), $request->get('_token'))){
-            $manager->remove($vehicule);
-            $manager->flush();
-            $this->addFlash("success", "Suppression effectuée");
+        if($this->isCsrfTokenValid("sup".$vehicule->getId(), $request->get('_token'))){ # on vérifie que le token transmis soit le bon
+            $manager->remove($vehicule); # on supprime la ligne qui correspond à l'objet de la classe Disponibilite
+            $manager->flush(); # on enregistre la modification
+            $this->addFlash("success", "Suppression effectuée"); # on ajoute un addFlash pour pouvoir indiquer si l'action s'est bien passé ou non
              
         }
         else{
             $this->addFlash("failed", "Suppression non effectuée");
         }
-        return $this->redirectToRoute("afficherLesVehicules");      
+        return $this->redirectToRoute("afficherLesVehiculesAdmin");      
     }
 }

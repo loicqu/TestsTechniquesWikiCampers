@@ -27,7 +27,7 @@ class Vehicule
     /**
      * @var Collection<int, Disponibilite>
      */
-    #[ORM\OneToMany(targetEntity: Disponibilite::class, mappedBy: 'idVehicule', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Disponibilite::class, mappedBy: 'idVehicule', orphanRemoval: false)]
     private Collection $disponibilites;
 
     #[ORM\Column(length: 255, nullable: true)]
