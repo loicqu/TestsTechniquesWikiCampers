@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Véhicules{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}        
+{% for message in app.flashes('failed') %}
+    <div class="alert alert-danger">
+        {{message}}
+    </div>
+{% endfor %}
+
+
+
+<div class="types-de-bien-cadre">
+    <h1 class="my-4">Les véhicules disponible en location</h1>
+    <form action="">
+    <button  style="margin-bottom: 20px; border: solid 1px #0d6efd; background-color: #0d6efd; " class="btn btn-success" formaction="{{path("vehicule_ajout")}}">AJOUTER</button>
+</form>
+  </div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for unVehicule in lesVehicules %}
+  <div class="col">
+    <div class="card">
+      <img src="{{asset('images/vehicule/'~ unVehicule.image)}}" class="card-img-top" alt="image de la voiture"/>
+      <div class="card-body">
+        <h5 class="card-title">{{ unVehicule.marque }}&nbsp;{{ unVehicule.modele }}</h5>
+        <div class="d-flex">
+          <form action="{{path('vehicule_modification', {'id': unVehicule.id})}}" style="margin-right: 2px">
+            <input type="submit" class="btn btn-outline-primary" value="MODIFIER">
+          </form>
+          <form method="POST" action="{{path("vehicule_suppression", {'id': unVehicule.id})}}" onsubmit="return confirm('Confirmer la suppression?')">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="_token" value="{{csrf_token('sup'~ unVehicule.id)}}">
+            <input type="submit" class="btn btn-outline-danger" value="SUPPRIMER">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}
