@@ -30,16 +30,6 @@
       <img src="{{asset('images/vehicule/'~ unVehicule.image)}}" class="card-img-top" alt="image de la voiture"/>
       <div class="card-body">
         <h5 class="card-title">{{ unVehicule.marque }}&nbsp;{{ unVehicule.modele }}</h5>
-        <div class="d-flex">
-          <form action="{{path('vehicule_modification', {'id': unVehicule.id})}}" style="margin-right: 2px">
-            <input type="submit" class="btn btn-outline-primary" value="MODIFIER">
-          </form>
-          <form method="POST" action="{{path("vehicule_suppression", {'id': unVehicule.id})}}" onsubmit="return confirm('Confirmer la suppression?')">
-            <input type="hidden" name="_method" value="delete">
-            <input type="hidden" name="_token" value="{{csrf_token('sup'~ unVehicule.id)}}">
-            <input type="submit" class="btn btn-outline-danger" value="SUPPRIMER">
-          </form>
-        </div>
       </div>
     </div>
   </div>

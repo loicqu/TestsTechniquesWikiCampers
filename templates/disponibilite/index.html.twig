@@ -10,7 +10,31 @@
 <div class="types-de-bien-cadre">
     <h1 class="my-4">Les disponibilités</h1>
 </div>
+{{ form_start(form) }}
 
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <form>
+                    <div class="row g-3">
+                        <div class="col">
+                            {{ form_row(form.dateDebut) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(form.dateFin) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(form.prixMax) }}
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit">RECHERCHER</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
 <div class="row row-cols-1 row-cols-md-3 g-4">
   {% for uneDisponibilite in lesDisponibilites %}
   <div class="col">
@@ -20,16 +44,6 @@
         <h5 class="card-title">Le véhicule {{uneDisponibilite.idvehicule.marque}}&nbsp;{{uneDisponibilite.idvehicule.modele}}</h5>
         <p>Il sera disponible du {{ uneDisponibilite.datedebut|date('d/m/Y') }} au {{ uneDisponibilite.datefin|date('d/m/Y') }}. 
         Le prix de la location sera de {{ uneDisponibilite.prixparjour }} € par jour.</p>
-        {# <div class="d-flex">
-          <form action="{{path('vehicule_modification', {'id': unVehicule.id})}}" style="margin-right: 2px">
-            <input type="submit" class="btn btn-outline-primary" value="MODIFIER">
-          </form>
-          <form method="POST" action="{{path("vehicule_suppression", {'id': unVehicule.id})}}" onsubmit="return confirm('Confirmer la suppression?')">
-            <input type="hidden" name="_method" value="delete">
-            <input type="hidden" name="_token" value="{{csrf_token('sup'~ unVehicule.id)}}">
-            <input type="submit" class="btn btn-outline-danger" value="SUPPRIMER">
-          </form>
-        </div> #}
       </div>
     </div>
   </div>

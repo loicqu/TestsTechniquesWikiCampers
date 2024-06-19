@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les disponibilités{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}        
+{% for message in app.flashes('failed') %}
+    <div class="alert alert-danger">
+        {{message}}
+    </div>
+{% endfor %}
+
+
+
+  <div class="types-de-bien-cadre">
+    <h1 class="my-4">Les disponibilités de location</h1>
+    <form action="">
+    <button  style="margin-bottom: 20px; border: solid 1px #0d6efd; background-color: #0d6efd; " class="btn btn-success" formaction="{{path("disponibilite_ajout")}}">AJOUTER</button>
+</form>
+  </div>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Prix par jour</th>
+            <th>statut</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for uneDisponibilite in lesDisponibilites %}    
+        <tr>
+            <td><img class="rounded" style="width: 250px" src="{{asset('images/vehicule/'~ uneDisponibilite.idvehicule.image)}}"></td>
+            <td>{{ uneDisponibilite.datedebut|date('d/m/Y') }}</td>
+            <td>{{ uneDisponibilite.datefin|date('d/m/Y') }}</td>
+            <td>{{ uneDisponibilite.prixparjour }}</td>
+            <td>{{ uneDisponibilite.statut }}</td>
+            <td>
+                <div class="d-flex">
+                    <form action="{{path('disponibilite_modification', {'id': uneDisponibilite.id})}}" style="margin-right: 2px">
+                        <input type="submit" class="btn btn-outline-primary" value="MODIFIER">
+                    </form>
+                    <form method="POST" action="{{path("disponibilite_suppression", {'id': uneDisponibilite.id})}}" onsubmit="return confirm('Confirmer la suppression?')">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="{{csrf_token('sup'~ uneDisponibilite.id)}}">
+                        <input type="submit" class="btn btn-outline-danger" value="SUPPRIMER">
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>        
+</table>
+{% endblock %}
