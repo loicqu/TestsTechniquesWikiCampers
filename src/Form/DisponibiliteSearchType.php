@@ -32,7 +32,7 @@ class DisponibiliteSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Prix maximum de la location (par jour)'
+                    'placeholder' => 'Prix maximum de la location'
                 ]
             ])
         ;

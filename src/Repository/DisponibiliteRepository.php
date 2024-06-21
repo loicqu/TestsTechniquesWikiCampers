@@ -37,6 +37,7 @@ class DisponibiliteRepository extends ServiceEntityRepository
         public function searchDispo(DisponibiliteSearch $search): array
         {
             $query = $this->findVisibleQuery();
+            
 
             if ($search->getDateDebut() && $search->getDateFin()) { # si la date de fin et de début sont données par l'utilisateur dans le filtre alors
                 $query = $query
@@ -58,6 +59,9 @@ class DisponibiliteRepository extends ServiceEntityRepository
                     ->andWhere('b.prixParJour <= :prixMax')
                     ->setParameter('prixMax', $search->getPrixMax()); # on ajoute une condition qui récupère toute les disponibilités avec un prix inférieur ou égal à celui que l'utilisateur a donné
             }
+            $query = $query
+                ->andWhere('b.statut = :statut')
+                ->setParameter('statut', "O");    # on ajoute une deuxième condition qui est de récupérer les disponibilités qui ont le statut O donc disponible
 
             return $query->getQuery()->getResult();
         }
