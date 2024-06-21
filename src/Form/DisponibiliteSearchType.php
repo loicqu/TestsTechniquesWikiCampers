@@ -48,6 +48,6 @@ class DisponibiliteSearchType extends AbstractType
     }
 
     public function getBlockPrefix(){
-        return '';
+        return ''; # permet d'avoir une URL plus propre
     }
 }
