@@ -12,7 +12,7 @@ class DisponibiliteSearch{
     
 
     /**
-     * Get the value of surface
+     * Get the value of dateDebut
      */
     public function getDateDebut(): ?\DateTimeInterface
     {
@@ -20,7 +20,7 @@ class DisponibiliteSearch{
     }
 
     /**
-     * Set the value of surface
+     * Set the value of dateDebut
      */
     public function setDateDebut(?\DateTimeInterface $dateDebut): self
     {
@@ -48,7 +48,7 @@ class DisponibiliteSearch{
     }
 
     /**
-     * Get the value of ville
+     * Get the value of dateFin
      */
     public function getDateFin(): ?\DateTimeInterface
     {
@@ -56,7 +56,7 @@ class DisponibiliteSearch{
     }
 
     /**
-     * Set the value of ville
+     * Set the value of dateFin
      */
     public function setDateFin(?\DateTimeInterface $dateFin): self
     {
