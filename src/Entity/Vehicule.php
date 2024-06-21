@@ -36,7 +36,7 @@ class Vehicule
     #[Vich\UploadableField(mapping: 'vehicule_image', fileNameProperty:'image')]
     private ?File $imageFile = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
     public function __construct()
