@@ -57,7 +57,7 @@ class DisponibiliteRepository extends ServiceEntityRepository
             if ($search->getPrixMax()) { # si un prix max a été donné :
                 $query = $query
                     ->andWhere('b.prixParJour <= :prixMax')
-                    ->setParameter('prixMax', $search->getPrixMax()); # on ajoute une condition qui récupère toute les disponibilités avec un prix inférieur ou égal à celui que l'utilisateur a donné
+                    ->setParameter('prixMax', $search->getPrixMax()); # on ajoute une condition qui récupère toutes les disponibilités avec un prix inférieur ou égal à celui que l'utilisateur a donné
             }
             $query = $query
                 ->andWhere('b.statut = :statut')
