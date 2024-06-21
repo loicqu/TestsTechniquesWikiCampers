@@ -22,22 +22,22 @@ class DisponibiliteController extends AbstractController
         $form = $this->createForm(DisponibiliteSearchType::class, $search); # initialisation du formulaire
         $form->handleRequest($request);
         $valForm = $form->getData(); # récupération des valeurs données dans le formulaire
-        if($valForm->getDateDebut() || $valForm->getDateFin() || $valForm->getPrixMax()){ # on vérifie que au moins un champ du formulaire n'est pas vide
+        if($valForm->getDateDebut() || $valForm->getDateFin() || $valForm->getPrixMax()){ # on vérifie qu'au moins un champ du formulaire n'est pas vide
             if($form->isSubmitted() && $form->isValid()){ # vérification de la validité du formulaire et on vérifie également qu'il a été soumis
                 $lesDisponibilites = $disponibiliteRepository->searchDispo($search); # on effectue une recherche avec les valeurs
-                if(!$lesDisponibilites and ($valForm->getDateDebut() || $valForm->getDateFin())){ # si le résultat est null et que au moins 1 date a été donné alors
+                if(!$lesDisponibilites and ($valForm->getDateDebut() || $valForm->getDateFin())){ # si le résultat est null et qu'au moins 1 date a été donné alors
                     if($valForm->getDateDebut()){
-                        $valForm->setDateDebut($valForm->getDateDebut()->modify('-1 day')); #on fait -1 a la date de début
+                        $valForm->setDateDebut($valForm->getDateDebut()->modify('-1 day')); #on fait -1 à la date de début
                     }
                     if($valForm->getDateFin()){
-                        $valForm->setDateFin($valForm->getDateFin()->modify('+1 day')); # on fait -1 a la date de début
+                        $valForm->setDateFin($valForm->getDateFin()->modify('+1 day')); # on fait -1 à la date de début
                     }
                     $lesDisponibilites = $disponibiliteRepository->searchDispo($search); # on effectue une deuxième recherche avec les nouvelles valeurs
                 }
             }
         }
         else{
-            $lesDisponibilites = $disponibiliteRepository->touteLesDisponibilites(); # si le formulaire n'est pas valide ou n'a pas été soumis on renvoie toute les disponibilités
+            $lesDisponibilites = $disponibiliteRepository->touteLesDisponibilites(); # si le formulaire n'est pas valide ou n'a pas été soumis, on renvoie toutes les disponibilités
         }
         return $this->render('disponibilite/index.html.twig',[
             'lesDisponibilites'=>$lesDisponibilites,
